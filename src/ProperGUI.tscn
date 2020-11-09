@@ -1,0 +1,290 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://src/menu/toolbar/toolbar_buttongroup.tres" type="ButtonGroup" id=1]
+[ext_resource path="res://src/mapelements/NodeTest.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/thirdpartytools/SBGNServer.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/menu/topbar/SettingsWindow.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/menu/wheelmenu/AddGlyphDialog.tscn" type="PackedScene" id=5]
+[ext_resource path="res://theme.tres" type="Theme" id=6]
+[ext_resource path="res://src/menu/topbar/EditMenuButton.gd" type="Script" id=7]
+[ext_resource path="res://src/menu/topbar/FileMenuButton.gd" type="Script" id=8]
+[ext_resource path="res://src/menu/toolbar/AddArcButton.gd" type="Script" id=9]
+[ext_resource path="res://src/ProperGUI.gd" type="Script" id=10]
+[ext_resource path="res://src/statusdisplay/SbgnBackendStatusLabel.gd" type="Script" id=11]
+[ext_resource path="res://src/Viewport.gd" type="Script" id=12]
+[ext_resource path="res://src/menu/toolbar/SelectButton.gd" type="Script" id=13]
+[ext_resource path="res://src/menu/toolbar/AddGlyphButton.gd" type="Script" id=14]
+[ext_resource path="res://src/statusdisplay/JavaStatusLabel.gd" type="Script" id=15]
+[ext_resource path="res://src/MapView.gd" type="Script" id=16]
+[ext_resource path="res://src/statusdisplay/GitStatusLabel.gd" type="Script" id=17]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.12549, 0.141176, 0.192157, 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.439216, 0.364706, 0.192157, 1 )
+
+[node name="ProperGUI" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 6 )
+script = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+margin_right = 1600.0
+margin_bottom = 26.0
+theme = ExtResource( 6 )
+custom_styles/panel = SubResource( 1 )
+
+[node name="TopMenu" type="MarginContainer" parent="VBoxContainer/PanelContainer"]
+margin_right = 1600.0
+margin_bottom = 26.0
+size_flags_horizontal = 3
+custom_constants/margin_right = 2
+custom_constants/margin_top = 2
+custom_constants/margin_left = 2
+custom_constants/margin_bottom = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer/TopMenu"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 1598.0
+margin_bottom = 24.0
+mouse_filter = 0
+
+[node name="FileMenuButton" type="MenuButton" parent="VBoxContainer/PanelContainer/TopMenu/HBoxContainer"]
+margin_right = 35.0
+margin_bottom = 22.0
+theme = ExtResource( 6 )
+text = "File"
+items = [ "Start backend server", null, 0, false, false, 0, 0, null, "", false, "Open", null, 0, false, false, 1, 0, null, "", false ]
+switch_on_hover = true
+script = ExtResource( 8 )
+
+[node name="OpenFileDialog" type="FileDialog" parent="VBoxContainer/PanelContainer/TopMenu/HBoxContainer/FileMenuButton"]
+margin_left = 241.48
+margin_top = -176.657
+margin_right = 781.48
+margin_bottom = 178.343
+popup_exclusive = true
+window_title = "Open a File"
+resizable = true
+mode = 0
+access = 2
+current_dir = "/Users/Ludo/Documents/GodotProjects/SBGNIDE"
+current_path = "/Users/Ludo/Documents/GodotProjects/SBGNIDE/"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EditMenuButton" type="MenuButton" parent="VBoxContainer/PanelContainer/TopMenu/HBoxContainer"]
+margin_left = 39.0
+margin_right = 75.0
+margin_bottom = 22.0
+text = "Edit"
+items = [ "Settings", null, 0, false, false, 0, 0, null, "", false ]
+switch_on_hover = true
+script = ExtResource( 7 )
+
+[node name="ToolbarContainer" type="PanelContainer" parent="VBoxContainer"]
+margin_top = 26.0
+margin_right = 1600.0
+margin_bottom = 52.0
+theme = ExtResource( 6 )
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/ToolbarContainer"]
+margin_right = 1600.0
+margin_bottom = 26.0
+size_flags_horizontal = 3
+custom_constants/margin_right = 2
+custom_constants/margin_top = 2
+custom_constants/margin_left = 2
+custom_constants/margin_bottom = 2
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ToolbarContainer/MarginContainer"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 1598.0
+margin_bottom = 24.0
+mouse_filter = 0
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="SelectButton" type="Button" parent="VBoxContainer/ToolbarContainer/MarginContainer/HBoxContainer"]
+margin_right = 51.0
+margin_bottom = 22.0
+toggle_mode = true
+pressed = true
+group = ExtResource( 1 )
+text = "Select"
+script = ExtResource( 13 )
+
+[node name="AddGlyphButton" type="Button" parent="VBoxContainer/ToolbarContainer/MarginContainer/HBoxContainer"]
+margin_left = 55.0
+margin_right = 85.0
+margin_bottom = 22.0
+toggle_mode = true
+group = ExtResource( 1 )
+text = "+G"
+script = ExtResource( 14 )
+
+[node name="AddArcButton" type="Button" parent="VBoxContainer/ToolbarContainer/MarginContainer/HBoxContainer"]
+margin_left = 89.0
+margin_right = 118.0
+margin_bottom = 22.0
+toggle_mode = true
+group = ExtResource( 1 )
+text = "+A"
+script = ExtResource( 9 )
+
+[node name="PanelContainer2" type="PanelContainer" parent="VBoxContainer"]
+margin_top = 52.0
+margin_right = 1600.0
+margin_bottom = 874.0
+mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TabContainer" type="TabContainer" parent="VBoxContainer/PanelContainer2"]
+margin_right = 1600.0
+margin_bottom = 822.0
+mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 6 )
+custom_constants/top_margin = 0
+custom_constants/side_margin = 0
+tab_align = 0
+drag_to_rearrange_enabled = true
+
+[node name="MapView" type="ViewportContainer" parent="VBoxContainer/PanelContainer2/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 25.0
+mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+script = ExtResource( 16 )
+
+[node name="Viewport" type="Viewport" parent="VBoxContainer/PanelContainer2/TabContainer/MapView"]
+size = Vector2( 1600, 797 )
+size_override_stretch = true
+handle_input_locally = false
+hdr = false
+disable_3d = true
+usage = 0
+render_target_update_mode = 3
+physics_object_picking = true
+gui_disable_input = true
+script = ExtResource( 12 )
+
+[node name="NodeTest" parent="VBoxContainer/PanelContainer2/TabContainer/MapView/Viewport" instance=ExtResource( 2 )]
+
+[node name="PanelContainer3" type="PanelContainer" parent="VBoxContainer"]
+margin_top = 874.0
+margin_right = 1600.0
+margin_bottom = 900.0
+mouse_filter = 1
+theme = ExtResource( 6 )
+custom_styles/panel = SubResource( 1 )
+
+[node name="BottomBar" type="MarginContainer" parent="VBoxContainer/PanelContainer3"]
+margin_right = 1600.0
+margin_bottom = 26.0
+rect_min_size = Vector2( 0, 20 )
+size_flags_horizontal = 3
+custom_constants/margin_right = 2
+custom_constants/margin_top = 2
+custom_constants/margin_left = 2
+custom_constants/margin_bottom = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer3/BottomBar"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 1598.0
+margin_bottom = 24.0
+
+[node name="JavaStatusLabel" type="Label" parent="VBoxContainer/PanelContainer3/BottomBar/HBoxContainer"]
+margin_right = 8.0
+margin_bottom = 22.0
+mouse_filter = 1
+script = ExtResource( 15 )
+
+[node name="SbgnBackendStatusLabel" type="Label" parent="VBoxContainer/PanelContainer3/BottomBar/HBoxContainer"]
+margin_left = 12.0
+margin_right = 20.0
+margin_bottom = 22.0
+mouse_filter = 1
+script = ExtResource( 11 )
+
+[node name="GitStatusLabel" type="Label" parent="VBoxContainer/PanelContainer3/BottomBar/HBoxContainer"]
+margin_left = 24.0
+margin_right = 32.0
+margin_bottom = 22.0
+mouse_filter = 1
+script = ExtResource( 17 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 5
+
+[node name="SettingsWindow" parent="CanvasLayer" instance=ExtResource( 4 )]
+margin_left = 320.588
+margin_top = 163.563
+margin_right = 987.588
+margin_bottom = 319.563
+
+[node name="AddGlyphDialog" parent="CanvasLayer" instance=ExtResource( 5 )]
+margin_left = 470.581
+margin_top = 226.721
+margin_right = -829.419
+margin_bottom = -373.279
+
+[node name="SBGNServer" parent="." instance=ExtResource( 3 )]
+
+[node name="KeepAliveTimer" type="Timer" parent="."]
+wait_time = 20.0
+autostart = true
+[connection signal="start_backend_server" from="VBoxContainer/PanelContainer/TopMenu/HBoxContainer/FileMenuButton" to="." method="_on_FileMenuButton_start_backend_server"]
+[connection signal="file_selected" from="VBoxContainer/PanelContainer/TopMenu/HBoxContainer/FileMenuButton/OpenFileDialog" to="." method="_on_OpenFileDialog_file_selected"]
+[connection signal="show_settings" from="VBoxContainer/PanelContainer/TopMenu/HBoxContainer/EditMenuButton" to="." method="_on_EditMenuButton_show_settings"]
+[connection signal="hide_add_glyph_dialog" from="VBoxContainer/PanelContainer2/TabContainer/MapView" to="." method="_on_MapView_hide_add_glyph_dialog"]
+[connection signal="show_add_glyph_dialog" from="VBoxContainer/PanelContainer2/TabContainer/MapView" to="." method="_on_MapView_show_add_glyph_dialog"]
+[connection signal="request_completed" from="SBGNServer/HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
+[connection signal="timeout" from="KeepAliveTimer" to="." method="_on_KeepAliveTimer_timeout"]
+
+[editable path="SBGNServer"]

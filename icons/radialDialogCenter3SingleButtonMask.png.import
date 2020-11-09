@@ -1,0 +1,15 @@
+[remap]
+
+importer="bitmap"
+type="BitMap"
+path="res://.import/radialDialogCenter3SingleButtonMask.png-57317e891cda518bc6d2b769d4bd0bdf.res"
+
+[deps]
+
+source_file="res://icons/radialDialogCenter3SingleButtonMask.png"
+dest_files=[ "res://.import/radialDialogCenter3SingleButtonMask.png-57317e891cda518bc6d2b769d4bd0bdf.res" ]
+
+[params]
+
+create_from=0
+threshold=0.5
