@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://src/menu/toolbar/toolbar_buttongroup.tres" type="ButtonGroup" id=1]
 [ext_resource path="res://src/mapelements/NodeTest.tscn" type="PackedScene" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://src/statusdisplay/JavaStatusLabel.gd" type="Script" id=15]
 [ext_resource path="res://src/MapView.gd" type="Script" id=16]
 [ext_resource path="res://src/statusdisplay/GitStatusLabel.gd" type="Script" id=17]
+[ext_resource path="res://src/statusdisplay/LogDisplay.tscn" type="PackedScene" id=18]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.12549, 0.141176, 0.192157, 1 )
@@ -76,7 +77,7 @@ margin_right = 35.0
 margin_bottom = 22.0
 theme = ExtResource( 6 )
 text = "File"
-items = [ "Start backend server", null, 0, false, false, 0, 0, null, "", false, "Open", null, 0, false, false, 1, 0, null, "", false ]
+items = [ "Start backend server", null, 0, false, false, 0, 0, null, "", false, "Open", null, 0, false, false, 1, 0, null, "", false, "New Project", null, 0, false, false, 2, 0, null, "", false, "Save", null, 0, false, false, 3, 0, null, "", false ]
 switch_on_hover = true
 script = ExtResource( 8 )
 
@@ -89,6 +90,22 @@ popup_exclusive = true
 window_title = "Open a File"
 resizable = true
 mode = 0
+access = 2
+current_dir = "/Users/Ludo/Documents/GodotProjects/SBGNIDE"
+current_path = "/Users/Ludo/Documents/GodotProjects/SBGNIDE/"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NewProjectFileDialog" type="FileDialog" parent="VBoxContainer/PanelContainer/TopMenu/HBoxContainer/FileMenuButton"]
+margin_left = 241.48
+margin_top = -176.657
+margin_right = 781.48
+margin_bottom = 178.343
+popup_exclusive = true
+window_title = "Open a Directory"
+resizable = true
+mode = 2
 access = 2
 current_dir = "/Users/Ludo/Documents/GodotProjects/SBGNIDE"
 current_path = "/Users/Ludo/Documents/GodotProjects/SBGNIDE/"
@@ -259,6 +276,13 @@ margin_bottom = 22.0
 mouse_filter = 1
 script = ExtResource( 17 )
 
+[node name="LogDisplay" parent="VBoxContainer/PanelContainer3/BottomBar/HBoxContainer" instance=ExtResource( 18 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 36.0
+margin_right = 36.0
+margin_bottom = 22.0
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 5
 
@@ -281,6 +305,7 @@ wait_time = 20.0
 autostart = true
 [connection signal="start_backend_server" from="VBoxContainer/PanelContainer/TopMenu/HBoxContainer/FileMenuButton" to="." method="_on_FileMenuButton_start_backend_server"]
 [connection signal="file_selected" from="VBoxContainer/PanelContainer/TopMenu/HBoxContainer/FileMenuButton/OpenFileDialog" to="." method="_on_OpenFileDialog_file_selected"]
+[connection signal="dir_selected" from="VBoxContainer/PanelContainer/TopMenu/HBoxContainer/FileMenuButton/NewProjectFileDialog" to="." method="_on_NewProjectFileDialog_dir_selected"]
 [connection signal="show_settings" from="VBoxContainer/PanelContainer/TopMenu/HBoxContainer/EditMenuButton" to="." method="_on_EditMenuButton_show_settings"]
 [connection signal="hide_add_glyph_dialog" from="VBoxContainer/PanelContainer2/TabContainer/MapView" to="." method="_on_MapView_hide_add_glyph_dialog"]
 [connection signal="show_add_glyph_dialog" from="VBoxContainer/PanelContainer2/TabContainer/MapView" to="." method="_on_MapView_show_add_glyph_dialog"]

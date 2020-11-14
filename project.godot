@@ -28,6 +28,7 @@ config/icon="res://icon.png"
 
 Globals="*res://src/globals/Globals.gd"
 ConfigurationEvents="*res://src/globals/ConfigurationEvents.gd"
+GlobalEvents="*res://src/globals/GlobalEvents.gd"
 
 [display]
 

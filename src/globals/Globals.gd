@@ -7,7 +7,7 @@ var is_sbgn_backend_working:bool = false
 var is_git_working:bool = false
 
 
-
+var current_project_dir
 
 var data
 

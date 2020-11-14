@@ -11,8 +11,16 @@ const nodeTestScene = preload("res://src/mapelements/NodeTest.tscn")
 onready var mapViewContainer = $VBoxContainer/PanelContainer2/TabContainer/MapView
 onready var settingsWindows = $CanvasLayer/SettingsWindow
 onready var addGlyphDialog = $CanvasLayer/AddGlyphDialog
+onready var logDisplay := $VBoxContainer/PanelContainer3/BottomBar/HBoxContainer/LogDisplay
+
+const GitInterfaceClass = preload("res://src/thirdpartytools/GitInterface.gd")
 
 func _ready():
+	
+	# connect logdisplay to log signals from globalEvents
+	GlobalEvents.connect("log_msg", logDisplay, "add_msg")
+	GlobalEvents.connect("log_warning", logDisplay, "add_warning")
+	GlobalEvents.connect("log_error", logDisplay, "add_error")
 	
 	## load config ##
 	var err = config.load(Globals.DEFAULT_CONFIG_PATH)
@@ -153,3 +161,32 @@ func _on_MapView_show_add_glyph_dialog():
 func _on_MapView_hide_add_glyph_dialog():
 	addGlyphDialog.visible = false
 	pass # Replace with function body.
+
+
+func _on_NewProjectFileDialog_dir_selected(dir:String):
+	if Globals.is_git_working:
+		Globals.current_project_dir = dir
+		print("new project at: " + str(dir))
+		var git_cmd = Globals.config.get_value("git", "gitPath")
+		var gitI = GitInterfaceClass.new(git_cmd)
+		gitI.git_init(dir)
+		
+		var filename = "current.vgraph"
+		var file = File.new()
+		file.open(dir.plus_file(filename), File.WRITE)
+		file.close()
+		
+		gitI.add(dir, filename)
+		
+		gitI.status(dir)
+		
+		gitI.commit(dir, "init")
+		
+		gitI.status(dir)
+		
+		pass
+	else:
+		print("git not working, cannot create projects")
+	
+	pass # Replace with function body.
+

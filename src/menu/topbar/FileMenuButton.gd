@@ -17,4 +17,8 @@ func _on_FileMenu_select(id:int):
 		1: # Open
 			$OpenFileDialog.current_dir = "C:/Programmation/Java/Projects/uberlibsbgn/samples"
 			$OpenFileDialog.popup_centered()
+		2: # New Project
+			$NewProjectFileDialog.popup_centered()
+		3: # Save
+			pass
 	pass
